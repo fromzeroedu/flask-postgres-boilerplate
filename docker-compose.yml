@@ -5,10 +5,10 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - /opt/flask-mysql-boilerplate:/counter_app
+      - /opt/flask-postgres-boilerplate:/counter_app
     links:
       - db:postgres
-    container_name: counterappmysql_web_1
+    container_name: counterapppostgres_web_1
     depends_on:
       - db
     environment:
@@ -21,7 +21,7 @@ services:
   db:
     image: postgres:9.6
     restart: always
-    container_name: counterappmysql_db_1
+    container_name: counterapppostgres_db_1
     environment:
         POSTGRES_USER: counter_user
         POSTGRES_PASSWORD: counter_password
