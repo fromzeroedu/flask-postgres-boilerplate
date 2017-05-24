@@ -7,7 +7,7 @@ services:
     volumes:
       - /opt/flask-mysql-boilerplate:/counter_app
     links:
-      - db:mysql
+      - db:postgres
     container_name: counterappmysql_web_1
     depends_on:
       - db
@@ -16,14 +16,13 @@ services:
         SECRET_KEY: 'you-will-never-guess'
         DB_USERNAME: counter_user
         DB_PASSWORD: counter_password
-        DB_HOST: mysql
+        DB_HOST: postgres
         DATABASE_NAME: counter
   db:
-    image: mysql:5.7
+    image: postgres:9.6
     restart: always
     container_name: counterappmysql_db_1
     environment:
-        MYSQL_USER: counter_user
-        MYSQL_PASSWORD: counter_password
-        MYSQL_ROOT_PASSWORD: rootpass
-        MYSQL_DATABASE: counter
+        POSTGRES_USER: counter_user
+        POSTGRES_PASSWORD: counter_password
+        POSTGRES_DB: counter
