@@ -1,28 +1,33 @@
-version: '2'
+version: "2"
 services:
   web:
     build: .
     ports:
       - "5000:5000"
     volumes:
-      - /opt/flask-postgres-boilerplate:/counter_app
+      - ./:/counter_app
     links:
       - db:postgres
-    container_name: counterapppostgres_web_1
+    container_name: app_web_1
     depends_on:
       - db
+    stdin_open: true
+    tty: true
     environment:
-        PORT: 5000
-        SECRET_KEY: 'you-will-never-guess'
-        DB_USERNAME: counter_user
-        DB_PASSWORD: counter_password
-        DB_HOST: postgres
-        DATABASE_NAME: counter
+      FLASK_APP: manage.py
+      FLASK_ENV: development
+      SECRET_KEY: "my_secret_key"
+      DB_USERNAME: app_user
+      DB_PASSWORD: app_password
+      DB_HOST: postgres
+      DATABASE_NAME: app
   db:
-    image: postgres:9.6
+    image: postgres:13-alpine
     restart: always
-    container_name: counterapppostgres_db_1
+    container_name: app_db_1
+    ports:
+      - "5432:5432"
     environment:
-        POSTGRES_USER: counter_user
-        POSTGRES_PASSWORD: counter_password
-        POSTGRES_DB: counter
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+      POSTGRES_DB: app

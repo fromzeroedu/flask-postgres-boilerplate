@@ -1,6 +1,7 @@
 from application import db
 
-class Counter(db.Model):
+
+class Counter(db.Model):  # type: ignore
     id = db.Column(db.Integer, primary_key=True)
     count = db.Column(db.Integer)
 
@@ -8,4 +9,4 @@ class Counter(db.Model):
         self.count = count
 
     def __repr__(self):
-        return '<Count %r>' % self.count 
+        return "<Count %r>" % self.count
