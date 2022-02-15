@@ -39,7 +39,7 @@ This is a boilerplate for a PostgreSQL Flask app that can run as a local poetry-
 
 ## Production
 
-- Use Hypercorn `hypercorn --bind 0.0.0.0:$PORT --reload wsgi:app`
+- Use Gunicorn `gunicorn --bind 0.0.0.0:5000 --reload wsgi:app`
 
 ## Codespaces
 
