@@ -35,6 +35,7 @@ This is a boilerplate for a PostgreSQL Flask app that can run as a local poetry-
   - `docker-compose run --rm web poetry run flask db upgrade`
 - Restart using docker-compose and head over to `http://localhost:5000` on your browser
 - Run tests by doing `docker-compose run --rm web poetry run pytest -s`
+- To connect to the Docker PostgreSQL shell, do `docker exec -it app_db_1 psql postgres -U app_user`
 
 ## Production
 

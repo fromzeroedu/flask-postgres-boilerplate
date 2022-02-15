@@ -4,14 +4,13 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
 # This needs to go above the create_app import
-load_dotenv(".quartenv")
+load_dotenv(".flaskenv")
 
-from application import create_app
-from db import metadata
+from application import create_app, db
 
 
 @pytest.fixture
-async def create_db():
+def create_db():
     print("Creating db")
     db_name = os.environ["DATABASE_NAME"]
     db_host = os.environ["DB_HOST"]
@@ -40,10 +39,10 @@ async def create_db():
     conn.execute("CREATE DATABASE " + db_test_name)
     conn.close()
 
-    print("Creating test tables")
-    engine = create_engine(db_uri + db_test_name)
-    metadata.bind = engine
-    metadata.create_all()
+    # print("Creating test tables")
+    # engine = create_engine(db_uri + db_test_name)
+    # metadata.bind = engine
+    # metadata.create_all()
 
     # TESTING flag disables error catching during request handling,
     # so that you get better error reports when performing test requests
@@ -67,11 +66,14 @@ async def create_db():
 
 
 @pytest.fixture
-async def create_test_app(create_db):
+def create_test_app(create_db):
     app = create_app(**create_db)
-    await app.startup()
+    app_context = app.app_context()
+    app_context.push()
+    db.create_all()
     yield app
-    await app.shutdown()
+    db.session.remove()
+    db.drop_all()
 
 
 @pytest.fixture
