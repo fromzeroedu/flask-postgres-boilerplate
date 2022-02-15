@@ -39,11 +39,6 @@ def create_db():
     conn.execute("CREATE DATABASE " + db_test_name)
     conn.close()
 
-    # print("Creating test tables")
-    # engine = create_engine(db_uri + db_test_name)
-    # metadata.bind = engine
-    # metadata.create_all()
-
     # TESTING flag disables error catching during request handling,
     # so that you get better error reports when performing test requests
     # against the application.
@@ -52,7 +47,7 @@ def create_db():
         "DB_PASSWORD": db_password,
         "DB_HOST": db_host,
         "DATABASE_NAME": db_test_name,
-        "DB_URI": db_uri + db_test_name,
+        "SQLALCHEMY_DATABASE_URI": db_uri + db_test_name,
         "TESTING": True,
     }
 
