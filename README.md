@@ -46,10 +46,8 @@ This is a boilerplate for a PostgreSQL Flask app that can run as a local poetry-
 - Start the Codespace
 - First time:
   - Run `poetry install`
-  - Restart VSCode for changes to be applied
-  - After restart:
-    - Make sure to select the poetry Python interpreter for VSCode
-    - Do the first migration: `poetry run flask db upgrade`
+  - Make sure to select the poetry Python interpreter for VSCode. If you don't see it, hit refresh on the dialog.
+  - Do the first migration: `poetry run flask db upgrade`
 - To run the application: `poetry run flask run`
   - The codespace will give you a private URL for your application
 - To connect to Postgres Database: `psql -h localhost -Uapp_user postgres`
